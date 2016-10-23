@@ -20,7 +20,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
-        android:id="@+id/editText2" />
+        android:id="@+id/editTextFrom" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -29,19 +29,20 @@
         android:inputType="textPersonName"
         android:text="Name2"
         android:ems="10"
-        android:layout_below="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
+        android:layout_below="@+id/editTextFrom"
+        android:layout_alignStart="@+id/editTextFrom"
         android:layout_marginTop="53dp"
-        android:id="@+id/editText3" />
+        android:id="@+id/editTextTo" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:inputType="date"
+        android:focusable="true"
         android:hint="Дата"
         android:ems="10"
-        android:id="@+id/editText4"
+        android:id="@+id/editTextData"
         android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/editText3" />
+        android:layout_alignStart="@+id/editTextTo" />
 </RelativeLayout>
