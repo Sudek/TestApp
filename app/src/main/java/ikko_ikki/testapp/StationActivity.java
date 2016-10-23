@@ -30,7 +30,10 @@ public class StationActivity extends AppCompatActivity implements SearchView.OnQ
         recyclerView.setHasFixedSize(true);
 
         initializeData();
-        initializeAdapter();
+
+        StationAdapter adapter = new StationAdapter(stations);
+        recyclerView.setAdapter(adapter);
+
     }
 
     private void initializeData(){
@@ -38,11 +41,6 @@ public class StationActivity extends AppCompatActivity implements SearchView.OnQ
         stations.add(new Station("Австрия", "Вена"));
         stations.add(new Station("Австрий", "Зальцбург"));
         stations.add(new Station("Венгрия", "Будапешт"));
-    }
-
-    private void initializeAdapter(){
-        StationAdapter adapter = new StationAdapter(stations);
-        recyclerView.setAdapter(adapter);
     }
 
     @Override

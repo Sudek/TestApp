@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolder> {
+class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolder> {
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder {
+    static class PersonViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardView;
         TextView personName;

@@ -28,15 +28,17 @@
                 android:id="@+id/person_age"
                 android:layout_below="@+id/person_name"
                 />
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/btn1"
+                android:background="@drawable/attention"
                 android:layout_alignParentRight="true"/>
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:background="@drawable/bus"
                 android:id="@+id/btn2"
                 android:layout_below="@+id/btn1"/>
         </RelativeLayout>
