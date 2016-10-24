@@ -1,5 +1,7 @@
 package ikko_ikki.testapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,15 +33,14 @@ public class StationActivity extends AppCompatActivity implements SearchView.OnQ
 
         initializeData();
 
-        StationAdapter adapter = new StationAdapter(stations);
+        StationAdapter adapter = new StationAdapter(stations, recyclerView.getContext());
         recyclerView.setAdapter(adapter);
-
     }
 
     private void initializeData(){
         stations = new ArrayList<>();
         stations.add(new Station("Австрия", "Вена"));
-        stations.add(new Station("Австрий", "Зальцбург"));
+        stations.add(new Station("Австрия", "Зальцбург"));
         stations.add(new Station("Венгрия", "Будапешт"));
     }
 
@@ -69,8 +70,15 @@ public class StationActivity extends AppCompatActivity implements SearchView.OnQ
             }
         }
         recyclerView.scrollToPosition(0);
-        StationAdapter adapter = new StationAdapter(stationList);
+        StationAdapter adapter = new StationAdapter(stationList, recyclerView.getContext());
         recyclerView.setAdapter(adapter);
         return true;
+    }
+
+    public void intentSourceCity(String city) {
+        Intent intent = new Intent();
+        intent.putExtra("city", city);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 }

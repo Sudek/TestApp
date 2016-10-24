@@ -1,5 +1,6 @@
 package ikko_ikki.testapp;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,16 +33,26 @@ public class MainActivity extends AppCompatActivity {
             if(b) {
                 DateDialog dialog = new DateDialog(view);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                dialog.show(ft, "DatePicker");
+                dialog.show(ft, "Календарь");
             }
         });
     }
     @OnClick(R.id.editTextFrom)
     public void OnClick() {
         Intent intent = new Intent(this, StationActivity.class);
-        startActivity(intent);
-
+        startActivityForResult(intent, 1);
     }
     @OnClick(R.id.editTextTo)
     public void onClick() {}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK){
+            editTextFrom.setText(data.getStringExtra("city"));
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+            }
+    }
+
 }
