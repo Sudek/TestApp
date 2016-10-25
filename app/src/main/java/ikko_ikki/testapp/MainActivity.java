@@ -39,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
     }
     @OnClick(R.id.editTextFrom)
     public void OnClick() {
-        Intent intent = new Intent(this, StationActivity.class);
-        startActivityForResult(intent, 1);
+        Intent i = new Intent(this, StationActivity.class);
+        startActivityForResult(i, 1);
     }
     @OnClick(R.id.editTextTo)
-    public void onClick() {}
+    public void onClick() {
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -1,6 +1,7 @@
 package ikko_ikki.testapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,30 +14,29 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ikko_ikki.testapp.utils.CitiesFrom;
 
 class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolder> {
 
     static class PersonViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cardView;
         @BindView(R.id.station_city) TextView stationCity;
         @BindView(R.id.station_country) TextView stationCountry;
         @BindView(R.id.btn_info) ImageButton imageButtonInfo;
         @BindView(R.id.btn_bus) ImageButton imageButtonAdd;
-//        @BindView(R.id.editTextFrom) EditText ed;
 
         PersonViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.recycler_view);
+            CardView cardView = (CardView) itemView.findViewById(R.id.recycler_view);
             ButterKnife.bind(this, itemView);
         }
     }
 
-    private List<Station> stations;
+    private List<CitiesFrom> stations;
     private Context context;
 
-    StationAdapter(List<Station> persons, Context context){
-        this.stations = persons;
+    StationAdapter(List<CitiesFrom> citiesFrom, Context context){
+        this.stations = citiesFrom;
         this.context = context;
     }
 
@@ -55,11 +55,13 @@ class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolde
 
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
-        personViewHolder.stationCity.setText(stations.get(i).getCity());
-        personViewHolder.stationCountry.setText(stations.get(i).getCountry());
+        personViewHolder.stationCity.setText(stations.get(i).getCityTitle());
+        personViewHolder.stationCountry.setText(stations.get(i).getCountryTitle());
 
         personViewHolder.imageButtonAdd.setOnClickListener(view ->
-                ((StationActivity) context).intentSourceCity(stations.get(i).getCity()));
+                ((StationActivity) context).intentSourceCity(stations.get(i).getCityTitle()));
+        personViewHolder.imageButtonInfo.setOnClickListener(view ->
+                context.startActivity(new Intent(context, StationInfoActivity.class)));
     }
 
     @Override
