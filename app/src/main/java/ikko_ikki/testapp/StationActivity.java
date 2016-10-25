@@ -19,12 +19,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import ikko_ikki.testapp.utils.AllStations;
+import ikko_ikki.testapp.utils.AllCities;
 import ikko_ikki.testapp.utils.CitiesFrom;
+import ikko_ikki.testapp.utils.StationFrom;
 
 public class StationActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    private List<CitiesFrom> stations;
+    private List<StationFrom> stationFrom;
     private RecyclerView recyclerView;
 
     @Override
@@ -38,19 +39,23 @@ public class StationActivity extends AppCompatActivity implements SearchView.OnQ
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-
-        stations = initializeData();
-
-        StationAdapter adapter = new StationAdapter(stations, recyclerView.getContext());
+        stationFrom = initializeDataFrom();
+        StationAdapter adapter = new StationAdapter(stationFrom, recyclerView.getContext());
         recyclerView.setAdapter(adapter);
     }
 
-    private ArrayList<CitiesFrom> initializeData() {
+    private List<StationFrom> initializeDataFrom() {
         final Gson gson = new Gson();
         final InputStream is = getResources().openRawResource(R.raw.all_stations);
         final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        final AllStations station = gson.fromJson(reader, AllStations.class);
-        return (ArrayList<CitiesFrom>) new ArrayList(station.getCitiesFrom());
+        final AllCities cities = gson.fromJson(reader, AllCities.class);
+        List<CitiesFrom> citiesFromList = cities.getCitiesFrom();
+        List<StationFrom> stationFrom = citiesFromList.get(0).getStations();
+        for (int i = 1; i < citiesFromList.size(); i++) {
+            List<StationFrom> sf1 = citiesFromList.get(i).getStations();
+            stationFrom.addAll(sf1); //merge to one List
+        }
+        return stationFrom;
     }
 
     @Override
@@ -70,24 +75,34 @@ public class StationActivity extends AppCompatActivity implements SearchView.OnQ
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        final ArrayList<CitiesFrom> citiesList = new ArrayList<>();
+        final ArrayList<StationFrom> stationList = new ArrayList<>();
         final String lowerCaseQuery = newText.toLowerCase();
-        for (int i  = 0; stations.size() != i; i++) {
-            String city = stations.get(i).getCityTitle().toLowerCase();
+        for (int i  = 0; i < stationFrom.size(); i++) {
+            String city = stationFrom.get(i).getStationTitle().toLowerCase();
             if(city.contains(lowerCaseQuery)) {
-                citiesList.add(stations.get(i));
+                stationList.add(stationFrom.get(i));
             }
         }
         recyclerView.scrollToPosition(0);
-        StationAdapter adapter = new StationAdapter(citiesList, recyclerView.getContext());
+        StationAdapter adapter = new StationAdapter(stationList, recyclerView.getContext());
         recyclerView.setAdapter(adapter);
         return true;
     }
-
-    public void intentSourceCity(String city) {
-        final Intent intent = new Intent();
-        intent.putExtra("city", city);
-        setResult(Activity.RESULT_OK, intent);
+    //set chosen city in main screen
+    public void intentSourceCity(String station) {
+        final Intent i = new Intent();
+        i.putExtra("station", station);
+        setResult(Activity.RESULT_OK, i);
         finish();
+    }
+
+    public void intentInfoStation(String station, String country, String region, String city, String district) {
+        final Intent i = new Intent(this, StationInfoActivity.class);
+        i.putExtra("station", station);
+        i.putExtra("country", country);
+        i.putExtra("region", region);
+        i.putExtra("city", city);
+        i.putExtra("district", district);
+        startActivity(i);
     }
 }

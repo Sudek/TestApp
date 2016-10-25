@@ -1,7 +1,6 @@
 package ikko_ikki.testapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ikko_ikki.testapp.utils.CitiesFrom;
+import ikko_ikki.testapp.utils.StationFrom;
 
 class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolder> {
 
@@ -32,11 +31,11 @@ class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolde
         }
     }
 
-    private List<CitiesFrom> stations;
+    private List<StationFrom> stations;
     private Context context;
 
-    StationAdapter(List<CitiesFrom> citiesFrom, Context context){
-        this.stations = citiesFrom;
+    StationAdapter(List<StationFrom> stationFrom, Context context){
+        this.stations = stationFrom;
         this.context = context;
     }
 
@@ -55,16 +54,20 @@ class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolde
 
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
-        personViewHolder.stationCity.setText(stations.get(i).getCityTitle());
-        personViewHolder.stationCountry.setText(stations.get(i).getCountryTitle());
+        String station = stations.get(i).getStationTitle();
+        String country = stations.get(i).getCountryTitle();
+        String region = stations.get(i).getRegionTitle();
+        String city = stations.get(i).getCityTitle();
+        String district = stations.get(i).getDistrictTitle();
+        personViewHolder.stationCity.setText(station);
+        personViewHolder.stationCountry.setText(country);
 
         personViewHolder.imageButtonAdd.setOnClickListener(view ->
-                ((StationActivity) context).intentSourceCity(stations.get(i).getCityTitle()));
+                ((StationActivity) context).intentSourceCity(station));
         personViewHolder.imageButtonInfo.setOnClickListener(view ->
-                context.startActivity(new Intent(context, StationInfoActivity.class)));
+                ((StationActivity) context).intentInfoStation(station, country, region, city, district));
     }
 
     @Override
-    public int getItemCount() { return stations.size(); }
-
+    public int getItemCount() {return stations.size();}
 }

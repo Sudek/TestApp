@@ -47,7 +47,8 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
             Toast.makeText
                     (getActivity().getApplicationContext(),
                     "Вы не можете выбрать дату, которая прошла",
-                    Toast.LENGTH_LONG);
+                    Toast.LENGTH_LONG)
+                    .show();
         }
     }
 }

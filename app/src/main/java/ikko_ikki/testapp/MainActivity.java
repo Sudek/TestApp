@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.editTextFrom)
     public void OnClick() {
         Intent i = new Intent(this, StationActivity.class);
+        i.putExtra("from", true);
         startActivityForResult(i, 1);
     }
     @OnClick(R.id.editTextTo)
@@ -49,11 +50,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK){
-            editTextFrom.setText(data.getStringExtra("city"));
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-            }
+        if(resultCode == Activity.RESULT_OK) {
+            editTextFrom.setText(data.getStringExtra("station"));
+        }
     }
-
 }
