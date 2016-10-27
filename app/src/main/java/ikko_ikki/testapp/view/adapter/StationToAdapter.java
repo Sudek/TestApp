@@ -1,4 +1,4 @@
-package ikko_ikki.testapp;
+package ikko_ikki.testapp.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -13,9 +13,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ikko_ikki.testapp.utils.StationFrom;
+import ikko_ikki.testapp.R;
+import ikko_ikki.testapp.data.StationTo;
+import ikko_ikki.testapp.view.StationToActivity;
 
-class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolder> {
+public class StationToAdapter extends RecyclerView.Adapter<StationToAdapter.PersonViewHolder> {
 
     static class PersonViewHolder extends RecyclerView.ViewHolder {
 
@@ -31,11 +33,11 @@ class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolde
         }
     }
 
-    private List<StationFrom> stations;
+    private List<StationTo> stations;
     private Context context;
 
-    StationAdapter(List<StationFrom> stationFrom, Context context){
-        this.stations = stationFrom;
+    public StationToAdapter(List<StationTo> stationTo, Context context){
+        this.stations = stationTo;
         this.context = context;
     }
 
@@ -45,15 +47,15 @@ class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolde
     }
 
     @Override
-    public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public StationToAdapter.PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater
                 .from(viewGroup.getContext())
                 .inflate(R.layout.activity_station, viewGroup, false);
-        return new PersonViewHolder(v);
+        return new StationToAdapter.PersonViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
+    public void onBindViewHolder(StationToAdapter.PersonViewHolder personViewHolder, int i) {
         String station = stations.get(i).getStationTitle();
         String country = stations.get(i).getCountryTitle();
         String region = stations.get(i).getRegionTitle();
@@ -63,9 +65,9 @@ class StationAdapter extends RecyclerView.Adapter<StationAdapter.PersonViewHolde
         personViewHolder.stationCountry.setText(country);
 
         personViewHolder.imageButtonAdd.setOnClickListener(view ->
-                ((StationActivity) context).intentSourceCity(station));
+                ((StationToActivity) context).intentSourceCity(station));
         personViewHolder.imageButtonInfo.setOnClickListener(view ->
-                ((StationActivity) context).intentInfoStation(station, country, region, city, district));
+                ((StationToActivity) context).intentInfoStation(station, country, region, city, district));
     }
 
     @Override

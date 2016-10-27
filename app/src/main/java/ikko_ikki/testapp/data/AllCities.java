@@ -1,4 +1,4 @@
-package ikko_ikki.testapp.utils;
+package ikko_ikki.testapp.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

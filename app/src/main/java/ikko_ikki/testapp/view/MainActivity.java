@@ -1,6 +1,5 @@
-package ikko_ikki.testapp;
+package ikko_ikki.testapp.view;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +9,12 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ikko_ikki.testapp.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView {
 
     @BindView(R.id.editTextFrom) EditText editTextFrom;
     @BindView(R.id.editTextTo) EditText editTextTo;
-//    @BindView(R.id.editTextData) EditText editTextData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,21 +36,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     @OnClick(R.id.editTextFrom)
     public void OnClick() {
-        Intent i = new Intent(this, StationActivity.class);
+        Intent i = new Intent(this, StationFromActivity.class);
         i.putExtra("from", true);
         startActivityForResult(i, 1);
     }
+
     @OnClick(R.id.editTextTo)
     public void onClick() {
+        Intent i = new Intent(this, StationToActivity.class);
+        i.putExtra("to", true);
+        startActivityForResult(i, 2);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK) {
-            editTextFrom.setText(data.getStringExtra("station"));
+        if(resultCode == 0 && data != null) { //prevent crashes, when user press back button
+            editTextFrom.setText(data.getStringExtra("stationFrom"));
+        }
+        if (requestCode == 2 && data != null) {
+            editTextTo.setText(data.getStringExtra("stationTo"));
         }
     }
 }

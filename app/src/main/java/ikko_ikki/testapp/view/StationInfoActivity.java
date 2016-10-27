@@ -1,4 +1,4 @@
-package ikko_ikki.testapp;
+package ikko_ikki.testapp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,9 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ikko_ikki.testapp.R;
 
-public class StationInfoActivity extends AppCompatActivity {
+public class StationInfoActivity extends AppCompatActivity implements StationInfoView {
 
     @BindView(R.id.txt_station_name) TextView stationName;
     @BindView(R.id.txt_country_name) TextView countryName;

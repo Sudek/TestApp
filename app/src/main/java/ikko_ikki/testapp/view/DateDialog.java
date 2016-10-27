@@ -1,4 +1,4 @@
-package ikko_ikki.testapp;
+package ikko_ikki.testapp.view;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

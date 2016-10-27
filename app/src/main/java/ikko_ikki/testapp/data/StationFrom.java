@@ -1,12 +1,9 @@
-package ikko_ikki.testapp.utils;
+package ikko_ikki.testapp.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CitiesTo {
+public class StationFrom {
 
     @SerializedName("countryTitle")
     @Expose
@@ -23,9 +20,12 @@ public class CitiesTo {
     @SerializedName("regionTitle")
     @Expose
     private String regionTitle;
-    @SerializedName("stations")
+    @SerializedName("stationId")
     @Expose
-    private List<StationTo> stations = new ArrayList<StationTo>();
+    private Integer stationId;
+    @SerializedName("stationTitle")
+    @Expose
+    private String stationTitle;
 
     /**
      * 
@@ -120,19 +120,37 @@ public class CitiesTo {
     /**
      * 
      * @return
-     *     The stations
+     *     The stationId
      */
-    public List<StationTo> getStations() {
-        return stations;
+    public Integer getStationId() {
+        return stationId;
     }
 
     /**
      * 
-     * @param stations
-     *     The stations
+     * @param stationId
+     *     The stationId
      */
-    public void setStations(List<StationTo> stations) {
-        this.stations = stations;
+    public void setStationId(Integer stationId) {
+        this.stationId = stationId;
+    }
+
+    /**
+     * 
+     * @return
+     *     The stationTitle
+     */
+    public String getStationTitle() {
+        return stationTitle;
+    }
+
+    /**
+     * 
+     * @param stationTitle
+     *     The stationTitle
+     */
+    public void setStationTitle(String stationTitle) {
+        this.stationTitle = stationTitle;
     }
 
 }
